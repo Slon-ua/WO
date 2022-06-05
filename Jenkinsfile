@@ -24,9 +24,14 @@ pipeline  {
     }
     stages {
         stage('Git Checkout') {
-        	// agent { label 'OD' }
+        	agent { label 'OD' }
             steps {
                 cleanWs()
+
+                sh 'pwd'
+                sh 'ls -la'
+                sh 'ls -la Maintenance/'
+                
                 // dir("./") {
                     // git branch: 'main', url: 'git@github.com:Slon-ua/WO.git', credentialsId: 'token_github'
 
