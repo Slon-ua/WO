@@ -38,7 +38,9 @@ pipeline  {
                 sh 'pwd'
                 sh 'ls -la'
 
-                // dir("./") {
+                dir("./") {
+                    git branch: 'main', url: 'git@github.com:Slon-ua/WO.git', credentialsId: '718f08ce-803f-46ce-baa1-86a0be56bc6c'
+                    
                     // git branch: 'main', url: 'git@github.com:Slon-ua/WO.git', credentialsId: 'token_github'
 
                     // git branch: 'main', url: 'git@github.com:Slon-ua/WO.git', credentialsId: 'd652767c-01b4-4cec-b6bf-aa400521ab9c'
@@ -47,7 +49,7 @@ pipeline  {
                     // git branch: 'main', url: 'https://github.com/Slon-ua/Drv_WO_Pipeline.git'
                     // sh 'git clone https://github.com/Slon-ua/WO.git ./'
 
-                // }
+                }
                 // sh 'git clone https://github.com/Slon-ua/WO ./'
                 sh 'uname -a'
                 sh 'pwd'
