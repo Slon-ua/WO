@@ -27,7 +27,7 @@ pipeline  {
         	// agent { label 'OD' }
             steps {
                 // cleanWs()
-                dir("./") {
+                // dir("./") {
                     // git branch: 'main', url: 'git@github.com:Slon-ua/WO.git', credentialsId: 'token_github'
 
 // \                    git branch: 'main', url: 'git@github.com:Slon-ua/WO.git', credentialsId: 'd652767c-01b4-4cec-b6bf-aa400521ab9c'
@@ -36,7 +36,7 @@ pipeline  {
                     // git branch: 'main', url: 'https://github.com/Slon-ua/Drv_WO_Pipeline.git'
                     // sh 'git clone https://github.com/Slon-ua/WO.git ./'
 
-                }
+                // }
                 sh 'git clone https://github.com/Slon-ua/WO.git ./'
                 sh 'uname -a'
                 sh 'pwd'
