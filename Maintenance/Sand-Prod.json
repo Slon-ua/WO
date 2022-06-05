@@ -1,0 +1,24 @@
+{
+	"id": "8bb64e13-9b01-4a83-b4bd-051b425acc34",
+	"name": "Driveroo",
+	"values": [
+		{
+			"key": "URL",
+			"value": "https://lp.driveroo.com/driveroo",
+			"enabled": true
+		},
+ 		{
+			"key": "sand",
+			"value": "https://sandbox.driveroo.com",
+			"enabled": true
+		},
+		{
+			"key": "prod",
+ 			"value": "https://lp.driveroo.com/driveroo",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2021-10-16T12:51:32.742Z",
+	"_postman_exported_using": "Postman/7.36.0"
+}

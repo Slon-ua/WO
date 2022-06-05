@@ -1,0 +1,17 @@
+{
+  "name": "swapi",
+  "version": "1.0.0",
+  "description": "Project first",
+  "scripts": {
+    "api-WO_Sandbox": "newman run ./Maintenance/WO.sand.json  -e ./Maintenance/Sand-Prod.json --reporters cli,junit,allure --reporter-junit-export newman.xml --reporter-allure-export 'Maintenance/allure-results'",
+    "api-WO_Production": "newman run ./Maintenance/WO.prod.json  -e ./Maintenance/Sand-Prod.json --reporters cli,junit,allure --reporter-junit-export newman.xml --reporter-allure-export 'Maintenance/allure-results'",
+    "api-WO_sand_prod": "newman run ./Maintenance/WO.prod_sand.json  -e ./Maintenance/Sand-Prod.json --reporters cli,junit,allure --reporter-junit-export newman.xml --reporter-allure-export 'Maintenance/allure-results'",
+    "api-Fleet_Provider_insptction": "newman run ./Maintenance/Fleet_Provider_insptction.json  -e ./Maintenance/Sand-Prod.json --reporters cli,junit,allure --reporter-junit-export newman.xml --reporter-allure-export 'Maintenance/allure-results'",
+    "api-Filter_Sort": "newman run ./Maintenance/Filter_Sort_in_tables.json  -e ./Maintenance/Sand-Prod.json --reporters cli,junit,allure --reporter-junit-export newman.xml --reporter-allure-export 'Maintenance/allure-results'"
+  },
+  "author": "Sergii Kokhan",
+  "dependencies": {
+    "newman": "^4.5.7",
+    "newman-reporter-allure": "^1.0.7"
+  }
+}

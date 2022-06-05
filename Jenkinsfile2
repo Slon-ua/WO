@@ -1,0 +1,98 @@
+node {
+  agent any
+    triggers {
+        cron('0 8,10,15 * * *')
+        //pollSCM 'H/10 * * * *'
+    }
+    environment {
+        CHATID="-481038264"
+        TOKEN="1282407535:AAGyfDed5L_R7QLzRkXjX_yPJsGLXUaAn4E"
+    }    
+    parameters {
+        string(name: 'DESCRIPTION', defaultValue: '', description: 'Build description')
+
+        choice(
+            choices:['WO_sand_prod','WO_Sandbox', 'WO_Production','Fleet_Provider_insptction' ],
+            description: 'WO_Sandbox -- https://sandbox.driveroo.com/ \n WO_Production -- https://lp.driveroo.com/driveroo \n WO_sand_prod -- https://sandbox.driveroo.com/   https://lp.driveroo.com/driveroo \n Fleet_Provider_insptction -- https://lp.driveroo.com/driveroo \n',
+            name: 'ENVIRONMENT')
+    }
+
+   // stages {
+        stage('Git Checkout') {
+            steps {
+                dir("./") {
+                    git branch: 'main', url: 'git@github.com:driveroo/WO_with-without_maintenance.git', credentialsId: 'Jenkins-GitHub-SSH-Key'
+                        // git branch: 'main', url: 'https://github.com/Slon-ua/Drv_WO_Pipeline.git'
+
+                }
+                sh 'npm install'
+                // sh 'npm install -g newman-reporter-allure'
+                sh 'date'
+                script {
+                    if (DESCRIPTION != '') {
+                        currentBuild.displayName = "${DESCRIPTION}"
+                    }
+                }
+            }
+        }
+        try {
+            stage('Run on WO_Sandbox') {
+                when {
+                        expression { params.ENVIRONMENT == 'WO_Sandbox' }
+                }
+                steps {
+                    sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Start WO_Sandbox Test.'"
+                    sh 'npm run api-WO_Sandbox'
+                    sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Finish%20 WO_Sandbox %20Test. %0A ${currentBuild.currentResult} %0A https://jenkins.driveroo.com/view/Automation/job/WO_with_and_without_maintenance/"+BUILD_NUMBER+"/console'"
+                }
+            }
+            stage('Run on WO_Production') {
+                when {
+                        expression { params.ENVIRONMENT == 'WO_Production' }
+                }
+                steps {                   
+                    sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Start WO_Production Test.'"
+                    sh 'npm run api-WO_Production'
+                    sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Finish%20 WO_Production %20Test. %0A ${currentBuild.currentResult} %0A https://jenkins.driveroo.com/view/Automation/job/WO_with_and_without_maintenance/"+BUILD_NUMBER+"/console'"
+                }  
+            }
+            stage('Run on WO_sand_prod') {
+                when {
+                        expression { params.ENVIRONMENT == 'WO_sand_prod' && new Date().getHours() <21}
+                }
+                steps {
+                    sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Start WO_Sand_Prod Test.'"
+                    sh 'npm run api-WO_sand_prod'
+                    sh 'npm run api-Fleet_Provider_insptction'
+                    sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Finish%20 WO_Sand_Prod %20Test. %0A ${currentBuild.currentResult} %0A https://jenkins.driveroo.com/view/Automation/job/WO_with_and_without_maintenance/"+BUILD_NUMBER+"/console'"
+                }
+            } 
+            stage('Run on Fleet_Provider_insptction') {
+                when {
+                        expression { params.ENVIRONMENT == 'Fleet_Provider_insptction' }
+                }
+                steps {
+                    
+                    sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Start Fleet_Provider_insptction Test.'"
+                    sh 'npm run api-Fleet_Provider_insptction'
+                    sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Finish%20 Fleet_Provider_insptction %20Test. %0A ${currentBuild.currentResult} %0A https://jenkins.driveroo.com/view/Automation/job/WO_with_and_without_maintenance/"+BUILD_NUMBER+"/console'"            
+                }
+            }        
+        }   
+        catch (Exception err) {
+            echo 'Exception occurred: ' + err.toString()
+            sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Finish%20 Fleet_Provider_insptction %20Test. %0A ${currentBuild.currentResult} %0A https://jenkins.driveroo.com/view/Automation/job/WO_with_and_without_maintenance/"+BUILD_NUMBER+"/console'"
+        }
+        finally {
+            stage('Reports') {
+                allure([
+                    includeProperties: false,
+                    jdk: '',
+                    properties: [],
+                    reportBuildPolicy: 'ALWAYS',
+                    results: [[path: 'allure-results']]
+                ])
+            }
+        }
+   // }
+}

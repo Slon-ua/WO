@@ -1,0 +1,80 @@
+pipeline  {
+    agent any
+    parameters {
+        string(name: 'DESCRIPTION', defaultValue: '', description: 'Build description')
+
+        choice(
+            choices:['WO_Sandbox', 'WO_Production','WO_4443' ],
+            description: 'WO_Sandbox -- https://sandbox.driveroo.com/ \n WO_Production -- https://lp.driveroo.com/driveroo \n WO_4443 -- https://sandbox.driveroo.com:4443/ \n ',
+            name: 'ENVIRONMENT')
+
+        // text(name: 'CSV_USER_LIST', defaultValue: 'Login,Pass\nsergeyk+000@driveroo.com,123456\nsergeyk+001@driveroo.com,123456', description: 'use colimns:\nLogin,Pass')
+    }
+    stages {
+        stage('Git Checkout') {
+            steps {
+                dir("./") {
+                    git branch: 'main', url: 'git@github.com:driveroo/WO_with-without_maintenance.git', credentialsId: 'Jenkins-GitHub-SSH-Key'
+                }
+                //// sh 'pwd'
+                // sh 'ls -la'
+                // sh 'cd ./fleet_autorization'
+                // sh 'pwd'
+                // sh 'ls -la'
+                sh 'npm install'
+                // sh 'pwd'
+                script {
+                    if (DESCRIPTION != '') {
+                        currentBuild.displayName = "${DESCRIPTION}"
+                    }
+                }
+            }
+        }
+        stage('Run on WO_Sandbox') {
+            when {
+                    expression { params.ENVIRONMENT == 'WO_Sandbox' }
+            }
+            steps {
+//                 sh '''#!/bin/bash
+// rm ./fleet_autorization/fleet.csv
+// echo "Save User's list for file"
+// cat >> ./fleet_autorization/fleet.csv <<EOL
+// $CSV_USER_LIST
+// EOL
+// '''
+                sh 'npm run api-WO_Sandbox'
+            }
+        }
+        stage('Run on WO_Production') {
+            when {
+                    expression { params.ENVIRONMENT == 'WO_Production' }
+            }
+            steps {
+//                 sh '''#!/bin/bash
+// rm ./fleet_autorization/fleet.csv
+// echo "Save User's list for file"
+// cat >> ./fleet_autorization/fleet.csv <<EOL
+// $CSV_USER_LIST
+// EOL
+// '''
+                sh 'npm run api-WO_Production'
+            }
+        }
+        stage('Run on WO_4443') {
+            when {
+                    expression { params.ENVIRONMENT == 'WO_4443' }
+            }
+            steps {
+//                 sh '''#!/bin/bash
+// rm ./fleet_autorization/provider.csv
+// echo "Save User's list for file"
+// cat >> ./fleet_autorization/provider.csv <<EOL
+// $CSV_USER_LIST
+// EOL
+// '''
+                sh 'npm run api-WO_4443'
+            }
+        }
+    //  sh "curl -s -X POST https://api.telegram.org/bot1282407535:AAGyfDed5L_R7QLzRkXjX_yPJsGLXUaAn4E/sendMessage -d chat_id=-481038264 -d text='Finish%20API%20Test.%0Ahttps://jenkins.driveroo.com/job/Postman_API_Pipeline/lastBuild/consoleText'"
+    }
+}
