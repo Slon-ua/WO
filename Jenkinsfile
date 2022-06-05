@@ -4,6 +4,7 @@ pipeline  {
         always {
             // archiveArtifacts artifacts: '*.txt'
             // Workspace()
+            cleanWs()
         }  
     }
     // agent{
@@ -32,7 +33,7 @@ pipeline  {
         stage('Git Checkout') {
         // agent { label 'OD' }
             steps {
-                cleanWs()
+                // cleanWs()
 
                 sh 'pwd'
                 sh 'ls -la'
