@@ -63,7 +63,7 @@ pipeline  {
 
                 // sh '/usr/local/bin/npm install'
                 // sh 'npm install -g newman-reporter-allure'
-                sh 'date'
+                // sh 'date'
                 // if (new Date().getHours() <21){
                     // sh 'rm -rf Maintenance/allure-results'
 
@@ -90,12 +90,12 @@ pipeline  {
             steps {
                 script {
                     try {
-                        sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Start WO_Sandbox Test.'"
+                        // sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Start WO_Sandbox Test.'"
                         sh 'npm run api-WO_Sandbox'
-                        sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Finish%20 WO_Sandbox %20Test. %0A ${currentBuild.currentResult} %0A https://jenkins.driveroo.com/view/Automation/job/WO_with_and_without_maintenance/"+BUILD_NUMBER+"/allure/'"
+                        // sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Finish%20 WO_Sandbox %20Test. %0A ${currentBuild.currentResult} %0A https://jenkins.driveroo.com/view/Automation/job/WO_with_and_without_maintenance/"+BUILD_NUMBER+"/allure/'"
                     } catch (Exception err) {
                         echo 'Exception occurred: ' + err.toString()
-                        sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Finish%20 WO_Sandbox %20Test. %0A ${currentBuild.currentResult} %0A https://jenkins.driveroo.com/view/Automation/job/WO_with_and_without_maintenance/"+BUILD_NUMBER+"/allure/'"
+                        // sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Finish%20 WO_Sandbox %20Test. %0A ${currentBuild.currentResult} %0A https://jenkins.driveroo.com/view/Automation/job/WO_with_and_without_maintenance/"+BUILD_NUMBER+"/allure/'"
                     }
                 }
             }
@@ -108,12 +108,12 @@ pipeline  {
             steps {
                 script {
                     try {
-                        sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Start WO_Production Test.'"
+                        // sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Start WO_Production Test.'"
                         sh 'npm run api-WO_Production'
-                        sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Finish%20 WO_Production %20Test. %0A ${currentBuild.currentResult} %0A https://jenkins.driveroo.com/view/Automation/job/WO_with_and_without_maintenance/"+BUILD_NUMBER+"/allure/'"
+                        // sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Finish%20 WO_Production %20Test. %0A ${currentBuild.currentResult} %0A https://jenkins.driveroo.com/view/Automation/job/WO_with_and_without_maintenance/"+BUILD_NUMBER+"/allure/'"
                     } catch (Exception err) {
                         echo 'Exception occurred: ' + err.toString()
-                        sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Finish%20 WO_Production %20Test. %0A ${currentBuild.currentResult} %0A https://jenkins.driveroo.com/view/Automation/job/WO_with_and_without_maintenance/"+BUILD_NUMBER+"/allure/'"
+                        // sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Finish%20 WO_Production %20Test. %0A ${currentBuild.currentResult} %0A https://jenkins.driveroo.com/view/Automation/job/WO_with_and_without_maintenance/"+BUILD_NUMBER+"/allure/'"
                     }
                 }
             }
@@ -126,13 +126,13 @@ pipeline  {
             steps {
                 script {
                     try {
-                        sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Start WO_Sand_Prod Test.'"
+                        // sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Start WO_Sand_Prod Test.'"
                         sh 'npm run api-WO_sand_prod'
                         sh 'npm run api-Fleet_Provider_insptction'
-                        sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Finish%20 WO_Sand_Prod %20Test. %0A ${currentBuild.currentResult} %0A ${currentBuild.result} %0A https://jenkins.driveroo.com/view/Automation/job/WO_with_and_without_maintenance/"+BUILD_NUMBER+"/allure/'"
+                        // sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Finish%20 WO_Sand_Prod %20Test. %0A ${currentBuild.currentResult} %0A ${currentBuild.result} %0A https://jenkins.driveroo.com/view/Automation/job/WO_with_and_without_maintenance/"+BUILD_NUMBER+"/allure/'"
                     } catch (Exception err) {
                         echo 'Exception occurred: ' + err.toString()
-                        sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Finish%20 WO_Sand_Prod %20Test. %0A ${currentBuild.currentResult} %0A ${currentBuild.result} %0A https://jenkins.driveroo.com/view/Automation/job/WO_with_and_without_maintenance/"+BUILD_NUMBER+"/allure/'"
+                        // sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Finish%20 WO_Sand_Prod %20Test. %0A ${currentBuild.currentResult} %0A ${currentBuild.result} %0A https://jenkins.driveroo.com/view/Automation/job/WO_with_and_without_maintenance/"+BUILD_NUMBER+"/allure/'"
                     }
                 }
             }
@@ -145,12 +145,12 @@ pipeline  {
             steps {
                 script {
                     try {
-                        sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Start Filter__Sort in tables'"
+                        // sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Start Filter__Sort in tables'"
                         sh 'npm run api-Filter_Sort'
-                        sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Finish%20 Filter__Sort in tables %20Test. %0A ${currentBuild.currentResult} %0A ${currentBuild.result} %0A https://jenkins.driveroo.com/view/Automation/job/WO_with_and_without_maintenance/"+BUILD_NUMBER+"/allure/'"
+                        // sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Finish%20 Filter__Sort in tables %20Test. %0A ${currentBuild.currentResult} %0A ${currentBuild.result} %0A https://jenkins.driveroo.com/view/Automation/job/WO_with_and_without_maintenance/"+BUILD_NUMBER+"/allure/'"
                     } catch (Exception err) {
                         echo 'Exception occurred: ' + err.toString()
-                        sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Finish%20 Filter__Sort in tables %20Test. %0A ${currentBuild.currentResult} %0A ${currentBuild.result} %0A https://jenkins.driveroo.com/view/Automation/job/WO_with_and_without_maintenance/"+BUILD_NUMBER+"/allure/'"
+                        // sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Finish%20 Filter__Sort in tables %20Test. %0A ${currentBuild.currentResult} %0A ${currentBuild.result} %0A https://jenkins.driveroo.com/view/Automation/job/WO_with_and_without_maintenance/"+BUILD_NUMBER+"/allure/'"
                     }
                 }
             }
@@ -163,12 +163,12 @@ pipeline  {
             steps {
                 script {
                     try {
-                        sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Start Fleet_Provider_insptction Test.'"
+                        // sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Start Fleet_Provider_insptction Test.'"
                         sh 'npm run api-Fleet_Provider_insptction'
-                        sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Finish%20 Fleet_Provider_insptction %20Test. %0A ${currentBuild.currentResult} %0A ${currentBuild.result} %0A https://jenkins.driveroo.com/view/Automation/job/WO_with_and_without_maintenance/"+BUILD_NUMBER+"/allure/'"            
+                        // sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Finish%20 Fleet_Provider_insptction %20Test. %0A ${currentBuild.currentResult} %0A ${currentBuild.result} %0A https://jenkins.driveroo.com/view/Automation/job/WO_with_and_without_maintenance/"+BUILD_NUMBER+"/allure/'"            
                     } catch (Exception err) {
                         echo 'Exception occurred: ' + err.toString()
-                        sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Finish%20 Fleet_Provider_insptction %20Test. %0A ${currentBuild.currentResult} %0A ${currentBuild.result} %0A https://jenkins.driveroo.com/view/Automation/job/WO_with_and_without_maintenance/"+BUILD_NUMBER+"/allure/'"
+                        // sh "curl -s -X POST https://api.telegram.org/bot$TOKEN/sendMessage -d chat_id=$CHATID -d text='Finish%20 Fleet_Provider_insptction %20Test. %0A ${currentBuild.currentResult} %0A ${currentBuild.result} %0A https://jenkins.driveroo.com/view/Automation/job/WO_with_and_without_maintenance/"+BUILD_NUMBER+"/allure/'"
                     }
                 }
             }
