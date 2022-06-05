@@ -41,7 +41,7 @@ pipeline  {
                     // sh 'git clone https://github.com/Slon-ua/WO.git ./'
 
                 // }
-                sh 'git clone https://github.com/Slon-ua/WO.git ./'
+                sh 'git clone https://github.com/Slon-ua/WO ./'
                 sh 'uname -a'
                 sh 'pwd'
                 sh 'ls -la'
