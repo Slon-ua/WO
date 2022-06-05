@@ -30,7 +30,6 @@ pipeline  {
 
                 sh 'pwd'
                 sh 'ls -la'
-                sh 'ls -la Maintenance/'
 
                 // dir("./") {
                     // git branch: 'main', url: 'git@github.com:Slon-ua/WO.git', credentialsId: 'token_github'
