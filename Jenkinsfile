@@ -1,5 +1,11 @@
 pipeline  {
     agent any
+    post {
+        always {
+            // archiveArtifacts artifacts: '*.txt'
+            // Workspace()
+        }  
+    }
     // agent{
     //     node {
     //         label 'OD'
@@ -34,14 +40,14 @@ pipeline  {
                 // dir("./") {
                     // git branch: 'main', url: 'git@github.com:Slon-ua/WO.git', credentialsId: 'token_github'
 
-// \                    git branch: 'main', url: 'git@github.com:Slon-ua/WO.git', credentialsId: 'd652767c-01b4-4cec-b6bf-aa400521ab9c'
+                    // git branch: 'main', url: 'git@github.com:Slon-ua/WO.git', credentialsId: 'd652767c-01b4-4cec-b6bf-aa400521ab9c'
                     // git branch: 'main', url: 'git@github.com:Slon-ua/WO.git', credentialsId: '028be43b-8583-4937-9989-aca8d0628433'
 
                     // git branch: 'main', url: 'https://github.com/Slon-ua/Drv_WO_Pipeline.git'
                     // sh 'git clone https://github.com/Slon-ua/WO.git ./'
 
                 // }
-                sh 'git clone https://github.com/Slon-ua/WO ./'
+                // sh 'git clone https://github.com/Slon-ua/WO ./'
                 sh 'uname -a'
                 sh 'pwd'
                 sh 'ls -la'
